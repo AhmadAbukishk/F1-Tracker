@@ -91,11 +91,5 @@ def check():
 
 
 
-schedule.every(1).day.at('23:43').do(check)
-while True:
-    try:
-        schedule.run_pending()
-        time.sleep(1)
-    except:
-        print("Something went wrong in the scheduler")
+check()
         
