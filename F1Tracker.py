@@ -12,12 +12,14 @@ import os
 load_dotenv()
 
 def formatDate(dt, tm):
+    print('formating')
     cleanedDate = re.sub(r'\w{2}\s', "-", dt) + f'-{datetime.now().year}'
     mergedDate = f'{cleanedDate} {tm}'
     return datetime.strptime(mergedDate, '%d-%b-%Y %H:%M')
 
 
 def fetchRaceDatetime(race, raceType):
+    print('date fetching')
     qualRow = race.findChild('td', string=re.compile(f'{raceType}')).parent
     qualDT = qualRow.findChild('td', string=re.compile(r'\w{3}')).text.strip()
     qualTM = qualRow.findChild('td', string=re.compile(':')).text.strip()
@@ -26,6 +28,7 @@ def fetchRaceDatetime(race, raceType):
 
 
 def fetchData():
+    print('fetching')
     res = requests.get(f"https://www.skysports.com/f1/schedule-results")
     soup = BeautifulSoup(res.text, 'lxml')
 
@@ -40,6 +43,7 @@ def fetchData():
 
 
 def setUpEmail(FROM, TO, location, date, raceType):
+    print('setting up email')
     SUBJECT = f"Reminder: {raceType} Tomorrow  Don't Miss It!"
     TXT = f"""
     the {raceType} is happening tomorrow! 🏁
@@ -60,6 +64,7 @@ def setUpEmail(FROM, TO, location, date, raceType):
 
 
 def sendEmail(location, date, raceType):
+    print('sending email')
     host = 'smtp.gmail.com'
     port = 587
     FROM = os.getenv('EMAIL')
@@ -78,6 +83,7 @@ def sendEmail(location, date, raceType):
 
 
 def check():
+    print('checking()')
     prixDetails = fetchData()
     qualDaysDif = prixDetails['qualDate'].date() - datetime.now().date()
     raceDaysDif = prixDetails['raceDate'].date() - datetime.now().date()
@@ -91,11 +97,5 @@ def check():
 
 
 
-schedule.every(1).day.at('14:00').do(check)
-while True:
-    try:
-        schedule.run_pending()
-        time.sleep(1)
-    except:
-        print("Something went wrong in the scheduler")
+check()
         
