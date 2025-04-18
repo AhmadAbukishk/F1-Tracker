@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from dotenv import load_dotenv
 from email.message import EmailMessage
+from pytz import timezone
 import requests
 import schedule
 import time
@@ -80,12 +81,12 @@ def sendEmail(location, date, raceType):
 
 
 
-tz = pytz.timezone('Etc/GMT+4')
 
 prixDetails = fetchData()
-print(tz.localize(datetime.now()))
-qualDaysDif = prixDetails['qualDate'].date() - tz.localize(datetime.now()).date()
-raceDaysDif = prixDetails['raceDate'].date() - tz.localize(datetime.now()).date()
+
+localizedCurrentTime = datetime.now().astimezone(timezone('Etc/GMT+4'))
+qualDaysDif = prixDetails['qualDate'].date() - localizedCurrentTime
+raceDaysDif = prixDetails['raceDate'].date() - localizedCurrentTime
 
 
 
