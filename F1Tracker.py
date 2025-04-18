@@ -84,9 +84,7 @@ def sendEmail(location, date, raceType):
 
 prixDetails = fetchData()
 
-localizedCurrentDate = datetime.now().astimezone(timezone('Etc/GMT+4')).date()
-
-print(localizedCurrentDate)
+localizedCurrentDate = datetime.now().astimezone(timezone('Etc/GMT-4')).date()
 qualDaysDif = prixDetails['qualDate'].date() - localizedCurrentDate
 raceDaysDif = prixDetails['raceDate'].date() - localizedCurrentDate
 
