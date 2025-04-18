@@ -3,7 +3,7 @@ name: F1Tracker cron job
 on:
   schedule:
     # Runs every day at 8:00 AM UTC
-    - cron: '0 21 * * *'
+    - cron: '26 21 * * *'
   workflow_dispatch:  # allows manual trigger from GitHub
 
 jobs:
