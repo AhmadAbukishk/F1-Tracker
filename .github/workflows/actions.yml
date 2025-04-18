@@ -1,8 +1,10 @@
 name: F1Tracker cron job
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
+
+on:
   schedule:
-    - cron: 21 21 * * *
+    # Runs every day at 8:00 AM UTC
+    - cron: '0 21 * * *'
+  workflow_dispatch:  # allows manual trigger from GitHub
 
 jobs:
   run-script:
@@ -21,6 +23,6 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run your script
+      - name: Run the Python script
         run: |
           python F1Tracker.py
