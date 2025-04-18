@@ -8,6 +8,7 @@ import time
 import re
 import smtplib
 import os 
+import pytz
 
 load_dotenv()
 
@@ -77,19 +78,19 @@ def sendEmail(location, date, raceType):
         print('Something went wrong in the email sender')
 
 
-def check():
-    prixDetails = fetchData()
-    qualDaysDif = prixDetails['qualDate'].date() - datetime.now().date()
-    raceDaysDif = prixDetails['raceDate'].date() - datetime.now().date()
-
-    if(qualDaysDif.days == 1):
-        sendEmail(prixDetails['location'], prixDetails['qualDate'], 'Qaulifying')
-        print("Email sent")
-    elif(raceDaysDif == 1):
-        sendEmail(prixDetails['location'], prixDetails['raceDate'], 'Grand Prix')
-        print("Email sent")
 
 
+tz = pytz.timezone('Etc/GMT+4')
 
-check()
+prixDetails = fetchData()
+qualDaysDif = prixDetails['qualDate'].date() - tz.localize(datetime.now()).date()
+raceDaysDif = prixDetails['raceDate'].date() - tz.localize(datetime.now()).date()
+
+if(qualDaysDif.days == 1):
+    sendEmail(prixDetails['location'], prixDetails['qualDate'], 'Qaulifying')
+    print("Email sent")
+elif(raceDaysDif == 1):
+    sendEmail(prixDetails['location'], prixDetails['raceDate'], 'Grand Prix')
+    print("Email sent")
+
         
