@@ -83,6 +83,7 @@ def sendEmail(location, date, raceType):
 tz = pytz.timezone('Etc/GMT+4')
 
 prixDetails = fetchData()
+print(tz.localize(datetime.now()))
 qualDaysDif = prixDetails['qualDate'].date() - tz.localize(datetime.now()).date()
 raceDaysDif = prixDetails['raceDate'].date() - tz.localize(datetime.now()).date()
 
