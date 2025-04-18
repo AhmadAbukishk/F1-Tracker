@@ -86,10 +86,12 @@ prixDetails = fetchData()
 qualDaysDif = prixDetails['qualDate'].date() - tz.localize(datetime.now()).date()
 raceDaysDif = prixDetails['raceDate'].date() - tz.localize(datetime.now()).date()
 
+
+
 if(qualDaysDif.days == 1):
     sendEmail(prixDetails['location'], prixDetails['qualDate'], 'Qaulifying')
     print("Email sent")
-elif(raceDaysDif == 1):
+elif(raceDaysDif.days == 1):
     sendEmail(prixDetails['location'], prixDetails['raceDate'], 'Grand Prix')
     print("Email sent")
 
