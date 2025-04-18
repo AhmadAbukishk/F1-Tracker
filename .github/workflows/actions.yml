@@ -21,5 +21,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run the Python script
+        env:
+          APP_PASSWORD: ${{secrets.APP_PASSWORD}}
+          EMAIL: ${{secrets.EMAIL}}
         run: |
           python F1Tracker.py
