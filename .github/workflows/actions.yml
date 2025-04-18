@@ -2,7 +2,7 @@ name: F1Tracker cron job
 
 on:
   schedule:
-    - cron: 35 19 * * *
+    - cron: 36 19 * * *
 jobs:
   run-script:
     runs-on: ubuntu-latest
