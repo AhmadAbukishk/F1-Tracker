@@ -16,7 +16,8 @@ load_dotenv()
 def formatDate(dt, tm):
     cleanedDate = re.sub(r'\w{2}\s', "-", dt) + f'-{datetime.now().year}'
     mergedDate = f'{cleanedDate} {tm}'
-    return datetime.strptime(mergedDate, '%d-%b-%Y %H:%M')
+    formatedDate = datetime.strptime(mergedDate, '%d-%b-%Y %H:%M')
+    return formatedDate.astimezone(timezone('Etc/GMT-7'))
 
 
 def fetchRaceDatetime(race, raceType):
@@ -37,7 +38,8 @@ def fetchData():
     raceDetails['location'] = raceSoup.findChild('h2', class_='f1-races__race-name').text.strip()   
     raceDetails['raceDate'] = fetchRaceDatetime(raceSoup, 'Grand Prix')
     raceDetails['qualDate'] = fetchRaceDatetime(raceSoup, 'Qualifying')
-
+    
+    print(raceDetails['raceDate'])
     return raceDetails
 
 
